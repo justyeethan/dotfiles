@@ -1,0 +1,5 @@
+# Dotfiles
+Dotfiles for making MacOS look amazing!
+<img width="1440" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/0ec38b1b-8ca8-44fa-94d1-fadfe0f26f75">
+
+SKHD keybindings can be found in skhdrc. Duh.
