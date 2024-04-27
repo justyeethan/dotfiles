@@ -1,0 +1,36 @@
+# bsp, stack, float
+yabai -m config layout bsp
+
+yabai -m config window_placement second_child
+
+# padding
+yabai -m config top_padding 12
+yabai -m config bottom_padding 12
+yabai -m config left_padding 60
+yabai -m config right_padding 12
+yabai -m config window_gap 12
+
+# Mouse settings
+yabai -m config mouse_follows_focus on
+
+yabai -m config mouse_modifier alt
+# left click + drag = move window
+yabai -m config mouse_action1 move
+# right click + drag = Resize window
+yabai -m config mouse_action2 resize
+
+# Swap windows on drag
+yabai -m mouse_drop_action swap
+
+# External bar padding for top
+# yabai -m config external_bar all:0:0
+
+# Blacklist
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Calendar$" manage=off
+
+# Active Boarders:
+borders active_color=0xff6EA3FE inactive_color=0xff494d64 width=6 &
+
