@@ -27,8 +27,16 @@ esac
 # icon.padding_right=7\
 # icon.padding_left=8\
 
-# Set label in sketchybar with volume value
-sketchybar --set volume_icon icon="$ICON"
-sketchybar --set volume_icon icon.padding_left="$PADDING_LEFT"
-sketchybar --set volume_icon icon.padding_right="$PADDING_RIGHT"
-sketchybar --set "$NAME" label="$volume%"
+if [[ $volume = 'missing value' ]]; then
+	# Set label in sketchybar with volume value
+	sketchybar --set volume_icon icon="$ICON"
+	sketchybar --set volume_icon icon.padding_left="$PADDING_LEFT"
+	sketchybar --set volume_icon icon.padding_right="$PADDING_RIGHT"
+	sketchybar --set "$NAME" label="----"
+else
+	# Set label in sketchybar with volume value
+	sketchybar --set volume_icon icon="$ICON"
+	sketchybar --set volume_icon icon.padding_left="$PADDING_LEFT"
+	sketchybar --set volume_icon icon.padding_right="$PADDING_RIGHT"
+	sketchybar --set "$NAME" label="$volume%"
+fi
