@@ -1,0 +1,6 @@
+[submodule "zathura"]
+	path = zathura
+	url = git@github.com:justyeethan/zathuraConfig.git
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:justyeethan/AnyaVim.git
