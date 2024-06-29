@@ -12,12 +12,6 @@ clock=(
 	click_script="sketchybar --set clock popup.drawing=toggle; open -a Calendar.app"
 )
 
-calendar_popup=(
-	icon.drawing=off
-	label.padding_left=0
-	label.max_chars=22
-)
-
 sketchybar \
 	--add item clock right \
 	--set clock "${clock[@]}" \
@@ -25,5 +19,4 @@ sketchybar \
 	mouse.entered \
 	mouse.exited \
 	mouse.exited.global \
-	--add item clock.next_event popup.clock \
-	--set clock.next_event "${menu_item_defaults[@]}" "${calendar_popup[@]}"
+	--set clock.next_event "${menu_item_defaults[@]}"
