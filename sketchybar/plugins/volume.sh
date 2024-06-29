@@ -1,48 +1,43 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
-# Get current volume level
-volume=$(osascript -e 'output volume of (get volume settings)')
-case $volume in
-9[0-9] | 100)
-	ICON="􀊩"
-	PADDING_LEFT=3
-	PADDING_RIGHT=6
-	;;
-[6-8][0-9])
-	ICON="􀊧"
-	PADDING_LEFT=5
-	PADDING_RIGHT=7
-	;;
-[3-5][0-9])
-	ICON="􀊥"
-	PADDING_LEFT=6
-	PADDING_RIGHT=10
-	;;
-[1-2][0-9])
-	ICON="􀊡"
-	PADDING_LEFT=7
-	PADDING_RIGHT=14
-	;;
-*)
-	ICON="􀊣"
-	PADDING_LEFT=7
-	PADDING_RIGHT=8
-	;;
+WIDTH=100
+
+volume_change() {
+  source "$CONFIG_DIR/icons.sh"
+  source "$CONFIG_DIR/colors.sh"
+
+  case $INFO in
+    [6-9][0-9]|100) ICON=$VOLUME_100
+    ;;
+    [3-5][0-9]) ICON=$VOLUME_66
+    ;;
+    [1-2][0-9]) ICON=$VOLUME_33
+    ;;
+    [1-9]) ICON=$VOLUME_10
+    ;;
+    0) ICON=$VOLUME_0
+    ;;
+    *) ICON=$VOLUME_100
+  esac
+
+  sketchybar --set volume_icon icon=$ICON
+  sketchybar --set $NAME slider.percentage=$INFO --animate tanh 30 --set $NAME slider.width=$WIDTH 
+  sleep 2
+
+  # Check wether the volume was changed another time while sleeping
+  FINAL_PERCENTAGE=$(sketchybar --query $NAME | jq -r ".slider.percentage")
+  if (( FINAL_PERCENTAGE == INFO )); then
+    sketchybar --animate tanh 30 --set $NAME slider.width=0
+  fi
+}
+
+mouse_clicked() {
+  osascript -e "set volume output volume $PERCENTAGE"
+}
+
+case "$SENDER" in
+  "volume_change") volume_change
+  ;;
+  "mouse.clicked") mouse_clicked
+  ;;
 esac
-
-# icon.padding_right=7\
-# icon.padding_left=8\
-
-if [[ $volume = 'missing value' ]]; then
-	# Set label in sketchybar with volume value
-	sketchybar --set volume_icon icon="$ICON"
-	sketchybar --set volume_icon icon.padding_left="$PADDING_LEFT"
-	sketchybar --set volume_icon icon.padding_right="$PADDING_RIGHT"
-	sketchybar --set "$NAME" label="----"
-else
-	# Set label in sketchybar with volume value
-	sketchybar --set volume_icon icon="$ICON"
-	sketchybar --set volume_icon icon.padding_left="$PADDING_LEFT"
-	sketchybar --set volume_icon icon.padding_right="$PADDING_RIGHT"
-	sketchybar --set "$NAME" label="$volume%"
-fi
