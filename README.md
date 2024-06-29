@@ -4,8 +4,6 @@ My current dotfiles that take into account the macbook notch.
 
 <img width="1512" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/0ab572d4-56a3-4c24-a761-671a1b7bc606">
 
-<img width="1512" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/a97b7dcd-956a-48e2-8dda-b4155598ce59">
-
 <img width="1512" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/5dc86423-e4c6-4eaf-bf2d-62edf53252e0">
 
 
