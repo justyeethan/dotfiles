@@ -8,7 +8,6 @@ battery=(
 	update_freq=60
 	popup.align=right
 	script="$PLUGIN_DIR/battery.sh"
-	updates=when_shown
 )
 
 sketchybar \
