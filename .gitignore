@@ -2,3 +2,9 @@
 *.DS_Store*
 */.DS_Store*
 */.DS_Store
+
+# Remove this for ip address reasons
+sketchybar/plugins/wifi.sh
+
+.env
+sketchybar/env.sh
