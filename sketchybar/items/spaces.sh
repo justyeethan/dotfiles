@@ -24,6 +24,6 @@ for i in "${!SPACE_ICONS[@]}"; do
 		icon.font="SF Pro:bold:17.0" \
 		icon.padding_left=12 \
 		icon.padding_right=12 \
-		icon.highlight_color=0xffFF6C8D \
+		icon.highlight_color=$HIGHLIGHT \
 		click_script="yabai -m space --focus $sid"
 done

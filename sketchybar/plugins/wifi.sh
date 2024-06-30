@@ -38,7 +38,7 @@ elif [[ $CURRENT_WIFI != "inactive" ]]; then
 elif [[ $CURRENT_WIFI = "AirPort: Off" ]]; then
 	ICON=􀐾
 else
-	ICON_COLOR=$(getcolor white 25)
+	ICON_COLOR=$(getcolor red 50)
 	ICON=􀐾
 fi
 
