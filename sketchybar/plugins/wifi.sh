@@ -2,20 +2,24 @@
 
 # Loads defined colors
 source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/env.sh"
 
 POPUP_OFF="sketchybar --set wifi popup.drawing=off"
 POPUP_CLICK_SCRIPT="sketchybar --set wifi popup.drawing=toggle"
 
+# Environment file to hide your vpn IP
+
+echo $VPN_IP
+
 # Workaround for IKEv2 vpn connections not showing up. Checks if ipsec0 is active
-IS_VPN=$(ifconfig ipsec0)
+IS_VPN=false
 
 #IS_VPN="Disconnected" # TODO Fix VPN access and CURRENT_WIFI to use utils
 CURRENT_WIFI="$(ifconfig en0 | awk '/status:/{print $2}')"
 IP_ADDRESS="$(ipconfig getifaddr en0)"
 IS_HOTSPOT="$(networksetup -getairportnetwork en0)"
-CURR_TX="$(echo "$CURRENT_WIFI" | grep -o "lastTxRate: .*" | sed 's/^lastTxRate: //')"
 
-if ifconfig | grep -q "^ipsec0"; then
+if ifconfig | grep -q "^ipsec0" || ifconfig | grep -q $VPN_IP; then
 	IS_VPN=true
 else
 	IS_VPN=false
@@ -51,7 +55,6 @@ render_popup() {
 		args=(
 			--set wifi click_script="$POPUP_CLICK_SCRIPT"
 			--set wifi.ssid label="$SSID"
-			--set wifi.strength label="$CURR_TX Mbps"
 			--set wifi.ipaddress label="$IP_ADDRESS"
 			click_script="printf $IP_ADDRESS | pbcopy;$POPUP_OFF"
 		)

@@ -5,7 +5,7 @@ battery=(
 	icon.font.position=center
 	icon.padding_right=0
 	icon.font.style="Light"
-	update_freq=60
+	update_freq=10
 	popup.align=right
 	script="$PLUGIN_DIR/battery.sh"
 )
