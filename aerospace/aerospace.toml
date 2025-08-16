@@ -10,7 +10,7 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff6EA3FE inactive_color=0xff494d64 width=6 &'
+  'exec-and-forget borders active_color=0xff6EA3FE inactive_color=0xff494d64 width=6'
 ]
 
 # Used for updating sketchybar
@@ -67,7 +67,7 @@ inner.horizontal = 15
 inner.vertical =   15
 outer.left =       10
 outer.bottom =     10
-outer.top =        [{monitor."LG" = 50}, 10]
+outer.top =        [{monitor."LG HDR WQHD" = 42}, 15]
 outer.right =      10
 
 # 'main' binding mode declaration
@@ -210,3 +210,8 @@ run = 'move-node-to-workspace 4'
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.nordvpn.macos'
+run = 'move-node-to-workspace 6'
+
