@@ -47,7 +47,7 @@ export ICON_EXCEL=󱎏
 ### Logo and Dropdown Menu
 
 # Logo
-export ICON_LOGO=
+export ICON_LOGO=
 
 # Preferences
 export ICON_PREFERENCES=
