@@ -1,24 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 
-# Import the Icons
-source "$HOME/.config/sketchybar/icons.sh"
+# The volume_change event supplies a $INFO variable in which the current volume
+# percentage is passed to the script.
 
-# Battery
 if [ "$SENDER" = "volume_change" ]; then
-	VOLUME="$INFO"
+  VOLUME="$INFO"
 
-	case "$VOLUME" in
-	[6-9][0-9] | 100)
-		ICON="${ICONS_VOLUME[3]}"
-		;;
-	[3-5][0-9])
-		ICON="${ICONS_VOLUME[2]}"
-		;;
-	[1-9] | [1-2][0-9])
-		ICON="${ICONS_VOLUME[1]}"
-		;;
-	*) ICON="${ICONS_VOLUME[0]}" ;;
-	esac
+  case "$VOLUME" in
+    [6-9][0-9]|100) ICON="󰕾"
+    ;;
+    [3-5][0-9]) ICON="󰖀"
+    ;;
+    [1-9]|[1-2][0-9]) ICON="󰕿"
+    ;;
+    *) ICON="󰖁"
+  esac
 
-	sketchybar --set "$NAME" icon="$ICON" label="$VOLUME%"
+  sketchybar --set "$NAME" icon="$ICON" label="$VOLUME%"
 fi
