@@ -110,5 +110,20 @@ sketchybar --add item clock right \
   --subscribe battery system_woke power_source_change \
   --add item swap e \
 
+##### CPU + Wi-Fi/VPN #####
+# Added after battery, so they sit to its left: cpu | wifi | battery | volume | clock
+sketchybar --add item wifi right \
+  --set wifi update_freq=5 \
+    script="$PLUGIN_DIR/wifi.sh" \
+    icon.font="SF Pro:Semibold:16.0" \
+    label.font="SF Pro:Semibold:13.0" \
+    label.padding_left=0 \
+    label.y_offset=1 \
+    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
+  --subscribe wifi wifi_change system_woke \
+  --add item cpu right \
+  --set cpu update_freq=3 script="$PLUGIN_DIR/cpu.sh" \
+    click_script="open -a 'Activity Monitor'"
+
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

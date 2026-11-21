@@ -38,8 +38,7 @@ fi
 # Determine if this workspace should be visible
 # (has windows or is the focused workspace)
 if [ -n "$apps" ] || [ "$sid" = "$FOCUSED_WORKSPACE" ]; then
-  # sketchybar --set space.$sid label="$icon_strip" drawing=on
-  sketchybar --set space.$sid label="$icon_strip" icon="$chinese_sid" drawing=on
+    sketchybar --set space.$sid label="$icon_strip" icon="$chinese_sid" icon.color=0xffb0b0b0 drawing=on
 else
   sketchybar --set space.$sid drawing=off
 fi
