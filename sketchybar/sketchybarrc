@@ -2,6 +2,7 @@
 # Not too different from the base starting config!
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
+. "$CONFIG_DIR/colors.sh"
 
 ##### Bar Appearance #####
 # Configuring the general appearance of the bar.
@@ -10,7 +11,8 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+# Height unchanged (40); the bar itself is transparent and items sit on pills
+sketchybar --bar position=top height=40 color=$TRANSPARENT blur_radius=0 margin=10 y_offset=1 padding_left=0 padding_right=0 shadow=off
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -20,10 +22,13 @@ sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
 default=(
   padding_left=5
   padding_right=5
-  icon.font="Hack Nerd Font:Bold:17.0"
-  label.font="SF Pro:Semibold:17.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
+  icon.font="Hack Nerd Font:Bold:14.0"
+  label.font="Hack Nerd Font:Bold:13.0"
+  icon.color=$WHITE
+  label.color=$WHITE
+  background.height=30
+  background.corner_radius=9
+  background.border_width=0
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -31,6 +36,22 @@ default=(
   updates=on
 )
 sketchybar --default "${default[@]}"
+
+##### Apple logo #####
+sketchybar --add item apple left \
+  --set apple \
+    icon="􀣺" \
+    icon.font="SF Pro:Black:16.0" \
+    icon.color=$GREEN \
+    icon.padding_left=15 \
+    icon.padding_right=15 \
+    label.drawing=off \
+    padding_left=0 \
+    padding_right=6 \
+    background.color=$BLACK \
+    background.drawing=on \
+    shadow=on \
+    click_script="open -a 'System Settings'"
 
 ##### Adding aeropsace layouts #####
 # Add the aerospace events we specified in aerospace.toml
@@ -48,23 +69,19 @@ for sid in $(aerospace list-workspaces --all); do
     --set space.$sid \
     display="$display_id" \
     drawing=off \
-    background.color=0x44ffffff \
+    padding_left=3 \
+    padding_right=3 \
     background.corner_radius=5 \
-    background.drawing=on \
-    background.border_color=0xAAFFFFFF \
-    background.border_width=0 \
-    background.height=25 \
+    background.height=20 \
+    background.drawing=off \
     icon="$sid" \
-    icon.padding_left=10 \
-    icon.shadow.distance=4 \
-    icon.shadow.color=0xA0000000 \
-    label.font="sketchybar-app-font:Regular:16.0" \
-    label.padding_right=20 \
+    icon.font="Hack Nerd Font:Bold:14.0" \
+    icon.padding_left=6 \
+    icon.padding_right=2 \
+    label.font="sketchybar-app-font:Regular:14.0" \
+    label.padding_right=8 \
     label.padding_left=0 \
     label.y_offset=-1 \
-    label.shadow.drawing=off \
-    label.shadow.color=0xA0000000 \
-    label.shadow.distance=4 \
     click_script="aerospace workspace $sid" \
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
@@ -89,6 +106,17 @@ for mid in $(aerospace list-monitors | cut -c1); do
   done
 done
 
+# One pill around all workspaces (hidden ones are skipped automatically)
+sketchybar --add bracket spaces '/space\..*/' \
+  --set spaces \
+    background.color=$BACKGROUND_2 \
+    background.border_color=$YELLOW \
+    background.border_width=1 \
+    background.height=30 \
+    background.corner_radius=9 \
+    background.drawing=on \
+    shadow=on
+
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
 # Additional position (e.g. center) are available, see:
@@ -100,30 +128,90 @@ done
 # volume is registered. More info about the event system can be found here:
 # https://felixkratz.github.io/SketchyBar/config/events
 
+# Right side, right-to-left, all in one pill:
+#   [ cpu  battery  volume  wifi  net↑↓  date  (time) ]   time = small yellow chip
+
 sketchybar --add item clock right \
   --set clock update_freq=10 script="$PLUGIN_DIR/clock.sh" \
+    icon="" \
+    icon.color=$BLACK \
+    icon.padding_left=6 \
+    label.color=$BLACK \
+    label.padding_left=2 \
+    label.padding_right=8 \
+    padding_left=4 \
+    padding_right=6 \
+    background.color=$YELLOW \
+    background.height=20 \
+    background.corner_radius=6 \
+    background.drawing=on \
+  --add item date right \
+  --set date update_freq=60 script="$PLUGIN_DIR/date.sh" \
+    icon="" \
+    icon.color=$BLUE \
+    label.color=$WHITE \
+  --add item net.up right \
+  --set net.up \
+    width=0 \
+    y_offset=6 \
+    padding_left=0 \
+    icon.padding_left=0 \
+    icon="" \
+    icon.color=$RED \
+    icon.font="Hack Nerd Font:Bold:10.0" \
+    icon.padding_right=2 \
+    label="000KBps" \
+    label.color=$RED \
+    label.font="Hack Nerd Font:Bold:9.0" \
+  --add item net.down right \
+  --set net.down \
+    y_offset=-6 \
+    padding_left=0 \
+    icon.padding_left=0 \
+    update_freq=2 \
+    script="$PLUGIN_DIR/net.sh" \
+    icon="" \
+    icon.color=$CYAN \
+    icon.font="Hack Nerd Font:Bold:10.0" \
+    icon.padding_right=2 \
+    label="000KBps" \
+    label.color=$CYAN \
+    label.font="Hack Nerd Font:Bold:9.0" \
+  --subscribe net.down system_woke \
+  --add item wifi right \
+  --set wifi update_freq=5 \
+    script="$PLUGIN_DIR/wifi.sh" \
+    icon.font="SF Pro:Semibold:14.0" \
+    label.drawing=off \
+    padding_right=0 \
+    icon.padding_right=6 \
+    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
+  --subscribe wifi wifi_change system_woke \
   --add item volume right \
   --set volume script="$PLUGIN_DIR/volume.sh" \
+    icon.font="SF Pro:Regular:14.0" \
+    icon.color=$GREY \
   --subscribe volume volume_change \
   --add item battery right \
   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+    icon.font="SF Pro:Regular:17.0" \
+    label.padding_left=2 \
   --subscribe battery system_woke power_source_change \
-  --add item swap e \
-
-##### CPU + Wi-Fi/VPN #####
-# Added after battery, so they sit to its left: cpu | wifi | battery | volume | clock
-sketchybar --add item wifi right \
-  --set wifi update_freq=5 \
-    script="$PLUGIN_DIR/wifi.sh" \
-    icon.font="SF Pro:Semibold:16.0" \
-    label.font="SF Pro:Semibold:13.0" \
-    label.padding_left=0 \
-    label.y_offset=1 \
-    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
-  --subscribe wifi wifi_change system_woke \
   --add item cpu right \
   --set cpu update_freq=3 script="$PLUGIN_DIR/cpu.sh" \
-    click_script="open -a 'Activity Monitor'"
+    padding_left=10 \
+    click_script="open -a 'Activity Monitor'" \
+  --add bracket status cpu battery volume net.up net.down wifi date clock \
+  --set status \
+    background.color=$BACKGROUND_2 \
+    background.border_color=$BACKGROUND_2 \
+    background.border_width=0 \
+    background.height=30 \
+    background.corner_radius=9 \
+    background.drawing=on \
+    shadow=on
+
+sketchybar --add item swap e
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update

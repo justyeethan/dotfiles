@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. "$CONFIG_DIR/colors.sh"
+
 # CPU utilization as a pie chart icon (Nerd Font circle-slice glyphs).
 # Total %CPU across all processes, normalized by logical core count.
 
@@ -23,11 +25,11 @@ esac
 
 # White normally, orange when busy, red when pegged
 if [ "$CPU" -ge 90 ]; then
-  COLOR="0xffed8796"
+  COLOR="$RED"
 elif [ "$CPU" -ge 70 ]; then
-  COLOR="0xfff5a97f"
+  COLOR="$ORANGE"
 else
-  COLOR="0xffffffff"
+  COLOR="$WHITE"
 fi
 
 sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${CPU}%"
