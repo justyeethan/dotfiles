@@ -67,7 +67,7 @@ inner.horizontal = 15
 inner.vertical =   15
 outer.left =       10
 outer.bottom =     10
-outer.top =        [{monitor."LG HDR WQHD" = 50}, 15]
+outer.top =        [{monitor."Virtual 16:9" = 50}, {monitor."DELL S3222HN" = 50}, 15]
 #outer.top =        [{monitor."LG HDR WQHD" = 5}, 15]
 outer.right =      10
 
@@ -222,7 +222,7 @@ run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = 'move-node-to-workspace 5'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.nordvpn.macos'
