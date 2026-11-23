@@ -2,9 +2,11 @@
 
 My current dotfiles that take into account the macbook notch.
 
-<img width="1512" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/0ab572d4-56a3-4c24-a761-671a1b7bc606">
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/37979742-3e79-46b7-bf46-d416dd53bba2" />
 
-<img width="1512" alt="image" src="https://github.com/justyeethan/dotfiles/assets/61468547/5dc86423-e4c6-4eaf-bf2d-62edf53252e0">
+
+<img width="1913" height="1072" alt="image" src="https://github.com/user-attachments/assets/92289cc2-27d1-4443-a9c0-b594dc23930c" />
+
 
 
 To change the theme, switch to the .bak files for sketchybar and the yabairc file.
