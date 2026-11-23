@@ -2,10 +2,11 @@
 
 My current dotfiles that take into account the macbook notch.
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/37979742-3e79-46b7-bf46-d416dd53bba2" />
+<img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/d147b8ed-d8e0-4e52-9cee-dcbc72f1e9b6" />
 
 
-<img width="1913" height="1072" alt="image" src="https://github.com/user-attachments/assets/92289cc2-27d1-4443-a9c0-b594dc23930c" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/beb3123b-c25c-45cb-8c85-d523110bb600" />
+
 
 
 
